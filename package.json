@@ -1,0 +1,25 @@
+{
+  "name": "redux-fetch",
+  "version": "0.0.1",
+  "description": "A declarative Redux middleware to manage asynchronous service calls and side-effects",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shawn-Cao/redux-fetch.git"
+  },
+  "keywords": [
+    "redux",
+    "middleware",
+    "promise",
+    "fetch"
+  ],
+  "author": "Shawn Cao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shawn-Cao/redux-fetch/issues"
+  },
+  "homepage": "https://github.com/Shawn-Cao/redux-fetch#readme"
+}
