@@ -1,6 +1,6 @@
 {
   "name": "redux-pure-fetch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A declarative Redux middleware to manage asynchronous service calls and side-effects, so the reduc action creator & reducer stay pure can stay pure and actions still serializable",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/Shawn-Cao/redux-fetch.git"
   },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "redux",
     "middleware",
