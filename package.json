@@ -1,7 +1,7 @@
 {
-  "name": "redux-fetch",
-  "version": "0.0.1",
-  "description": "A declarative Redux middleware to manage asynchronous service calls and side-effects",
+  "name": "redux-pure-fetch",
+  "version": "0.0.2",
+  "description": "A declarative Redux middleware to manage asynchronous service calls and side-effects, so the reduc action creator & reducer stay pure can stay pure and actions still serializable",
   "main": "index.js",
   "scripts": {
     "test": "test"

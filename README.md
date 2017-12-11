@@ -1,4 +1,4 @@
-# nucleusFetchClientMiddleware
+# redux-pure-fetch
 
 A declarative Redux middleware to manage asynchronous service calls and side-effects. Using browser fetch API internally but dispatch [FSA](https://github.com/acdlite/flux-standard-action/) actions, returns promises for optional promise orchestration
 
@@ -23,7 +23,7 @@ A declarative Redux middleware to manage asynchronous service calls and side-eff
 2. Sequential AJAX calls are supported by dispatching new actions in success/error handler.
 3. Advanced promise coordination is not supported due to the declarative API design, until declarative coordination standard become available.
 4. Accept extended [FSA](https://github.com/acdlite/flux-standard-action/) actions (with all serializable information within standard fields), and dispatch FSA actions for upstream/downstream middleware processing).
-5. TODO: should work with [FETCH API](https://fetch.spec.whatwg.org/) (or XHR libraries like jQuery) standard. Using nucleus RequestBuilder now but considering simpler APIs if streaming is not in scope...
+5. TODO: should work with [FETCH API](https://fetch.spec.whatwg.org/) (or XHR libraries like jQuery) standard.
 
 
 ## Inspired by
