@@ -15,14 +15,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch, selectedReddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedReddit))
+    const { dispatch, selectedReddit, statePosts } = this.props
+    dispatch(fetchPostsIfNeeded(selectedReddit, statePosts))
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedReddit !== this.props.selectedReddit) {
-      const { dispatch, selectedReddit } = nextProps
-      dispatch(fetchPostsIfNeeded(selectedReddit))
+      const { dispatch, selectedReddit, statePosts } = nextProps
+      dispatch(fetchPostsIfNeeded(selectedReddit, statePosts))
     }
   }
 
@@ -33,9 +33,9 @@ class App extends Component {
   handleRefreshClick = e => {
     e.preventDefault()
 
-    const { dispatch, selectedReddit } = this.props
+    const { dispatch, selectedReddit, statePosts } = this.props
     dispatch(invalidateReddit(selectedReddit))
-    dispatch(fetchPostsIfNeeded(selectedReddit))
+    dispatch(fetchPostsIfNeeded(selectedReddit, statePosts))
   }
 
   render() {
@@ -72,20 +72,14 @@ class App extends Component {
 
 const mapStateToProps = state => {
   const { selectedReddit, postsByReddit } = state
-  const {
-    isFetching,
-    lastUpdated,
-    items: posts
-  } = postsByReddit[selectedReddit] || {
-    isFetching: true,
-    items: []
-  }
+  const statePosts = postsByReddit[selectedReddit]
 
   return {
     selectedReddit,
-    posts,
-    isFetching,
-    lastUpdated
+    posts: statePosts ? statePosts.items : [],
+    isFetching: statePosts ? statePosts.isFetching : true,
+    lastUpdated: statePosts && statePosts.lastUpdated,
+    statePosts
   }
 }
 

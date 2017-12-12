@@ -32,8 +32,8 @@ const mapPostResponse = (reddit, json) => ({
   receivedAt: Date.now()
 });
 
-const shouldFetchPosts = (state, reddit) => {
-  const posts = state.postsByReddit[reddit]
+// a selector method. see https://redux.js.org/docs/recipes/ComputingDerivedData.html
+const shouldFetchPosts = (reddit, posts) => {
   if (!posts) {
     return true
   }
@@ -43,8 +43,8 @@ const shouldFetchPosts = (state, reddit) => {
   return posts.didInvalidate
 }
 
-export const fetchPostsIfNeeded = reddit => (dispatch, getState) => {
-  if (shouldFetchPosts(getState(), reddit)) {
-    return dispatch(requestPosts(reddit))
+export const fetchPostsIfNeeded = (reddit, posts) => {
+  if (shouldFetchPosts(reddit, posts)) {
+    return requestPosts(reddit)
   }
 }

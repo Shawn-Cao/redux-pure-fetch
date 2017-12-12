@@ -70,7 +70,7 @@ export function createFetchMiddleware(fetchClients) {
 }
 
 // Provide a escape mechanism for action creater to request extra information (as selector) from redux state
-// NOTE: this is considered anti-pattern by a few redux maintainers, use with caution.
+// NOTE: reading arbitrary data from state is considered anti-pattern by a few redux maintainers, use with caution.
 // Usage also cause upstream middlewares gets different downstream
 function interpolateState(getState, payloadArray) {
   return payloadArray.map(arg => typeof arg === 'function' /* isSelector */ ? arg(getState()) : arg);
