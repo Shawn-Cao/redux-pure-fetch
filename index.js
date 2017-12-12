@@ -1,3 +1,5 @@
+import defaultFetchClient from './fetch-client-default';
+
 /**
  * nucleus-fetch-middleware: impurity blender to allow asynchronous Redux actions and reducers to stay pure
  * accept non-FSA action, but
@@ -17,10 +19,9 @@
  * @dispatch an FSD compliant action with resolved value as payload.
  * NOTE: The returned promise is only there as a mechanism for promise coordination.
  */
+export default createFetchMiddleware({ CLIENT: defaultFetchClient });
 
-let middleware;
-
-function createFetchMiddleware(fetchClients) {
+export function createFetchMiddleware(fetchClients) {
   const clients = fetchClients;
 
   return ({ dispatch, getState }) => next => action => {
@@ -38,14 +39,16 @@ function createFetchMiddleware(fetchClients) {
       throw new Error(`Unsupported fetch action: ${clientAction}`);
     }
 
-    const fetchParams = interpolateState(getState, action.payload);
+    // TODO: support state interpolating
+    // const fetchParams = interpolateState(getState, action.payload);
+    const fetchParams = action.payload;
     dispatch({
       type: `${action.type}-START`,
       payload: fetchParams // downstream middleware gets interpolated payload
     });
 
      // insert action thens before resolving promise to execute business logic. eg. data mapping
-    return clientAction(...fetchParams)
+    return clientAction(fetchParams)
       .then((res, err) => action.then ? action.then(res, err) : res)
       .catch((err) => action.catch ? action.catch(err) : Promise.reject(err))
       .then(handledResponse => {
@@ -69,12 +72,6 @@ function createFetchMiddleware(fetchClients) {
 // Provide a escape mechanism for action creater to request extra information (as selector) from redux state
 // NOTE: this is considered anti-pattern by a few redux maintainers, use with caution.
 // Usage also cause upstream middlewares gets different downstream
-function interpolateState(getState, fetchParams) {
-  return fetchParams.map(arg => typeof arg === 'function' /* isSelector */ ? arg(getState()) : arg);
-}
-
-
-export default function fetchMiddleware(middlewareConfig) {
-  middleware = createFetchMiddleware(middlewareConfig);
-  return middleware;
+function interpolateState(getState, payloadArray) {
+  return payloadArray.map(arg => typeof arg === 'function' /* isSelector */ ? arg(getState()) : arg);
 }

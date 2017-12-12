@@ -4,7 +4,7 @@ A declarative Redux middleware to manage asynchronous service calls and side-eff
 
 ## Design Goal
 
-1. promise unaware
+1. promise unaware, (unless desired, which follows standard promise coordination pattern)
 2. declarative side effect
 3. stay within Redux action => reducer pattern
   1. manage side-effect as separate response handlers so client code stay functional
@@ -23,7 +23,7 @@ A declarative Redux middleware to manage asynchronous service calls and side-eff
 2. Sequential AJAX calls are supported by dispatching new actions in success/error handler.
 3. Advanced promise coordination is not supported due to the declarative API design, until declarative coordination standard become available.
 4. Accept extended [FSA](https://github.com/acdlite/flux-standard-action/) actions (with all serializable information within standard fields), and dispatch FSA actions for upstream/downstream middleware processing).
-5. TODO: should work with [FETCH API](https://fetch.spec.whatwg.org/) (or XHR libraries like jQuery) standard.
+5. TODO: should work with [FETCH](https://fetch.spec.whatwg.org/) or [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) API standard.
 
 
 ## Inspired by
